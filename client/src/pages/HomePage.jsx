@@ -1,7 +1,6 @@
 import React from "react";
 import useUserStore from "../store/user.js";
 import TODO from "./TODO.jsx";
-import Navbar from "../components/Navbar.jsx";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
@@ -21,7 +20,6 @@ const HomePage = () => {
   return (
     <>
       <div className="h-screen w-full p-12 mx-10 my-8 flex flex-col items-center">
-        <Navbar />
         {currentUser?.email !== null && currentUser?.email !== undefined ? (
           <div className="w-full">
             <div className="flex justify-end">
