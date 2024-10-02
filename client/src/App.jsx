@@ -21,7 +21,6 @@ function App() {
       navigate("/");
     } else {
       logOut();
-      toast.error(message);
       setLoading(false);
       navigate("/login");
     }
