@@ -1,6 +1,6 @@
 import React from "react";
 import useUserStore from "../store/user.js";
-import TODO from "./TODO.jsx";
+import ToDoList from "./ToDoList.jsx";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -47,7 +47,10 @@ const HomePage = () => {
                 </button>
               </div>
             </div>
-            <TODO email={currentUser.email} todoList={currentUser?.todoList} />
+            <ToDoList
+              email={currentUser.email}
+              todoList={currentUser?.todoList}
+            />
           </div>
         ) : (
           <>
