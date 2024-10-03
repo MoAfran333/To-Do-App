@@ -3,10 +3,13 @@ import toast from "react-hot-toast";
 import deleteIcon from "../assets/delete.svg";
 import useUserStore from "../store/user";
 import { useNavigate } from "react-router-dom";
+import formatDate from "../utils/formatDate";
 
 function ToDo({ todo }) {
   const { deleteToDoList } = useUserStore();
   const navigate = useNavigate();
+
+  const formattedDate = formatDate(todo.deadlineDate);
 
   const handleDelete = async (e, taskId) => {
     e.preventDefault();
@@ -30,7 +33,7 @@ function ToDo({ todo }) {
         <h1 className="text-white font-extrabold">{todo.title}</h1>
         <div className="flex justify-between">
           <h2 className="text-gray-300 font-lg">{todo.description}</h2>
-          <h4 className="text-gray-300 font-md">{Date(todo.deadlineDate)}</h4>
+          <h4 className="text-gray-300 font-md">{formattedDate}</h4>
         </div>
       </div>
       <button
