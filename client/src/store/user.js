@@ -55,17 +55,16 @@ const useUserStore = create((set) => ({
 
   fetchData: async () => {
     try {
-      const res = await fetch("/api/auth/check-session");
-      const data = await res.json();
-      console.log(" Data Fetched : ", data);
-      set({
-        currentUser: {
-          id: data.id,
-          email: data.email,
-          todoList: data.todoList,
-        },
+      const res = await fetch("/api/auth/check-session", {
+        method: "GET",
+        credentials: "include",
       });
-      if (data.id !== null && data.email !== null) {
+      const { id, email, todoList } = await res.json();
+      console.log(" Data Fetched : ", id, email, todoList);
+      set({
+        currentUser: { id, email, todoList },
+      });
+      if (id !== null && email !== null) {
         return { success: true, message: "Data Fetched" };
       } else {
         return {
@@ -81,19 +80,43 @@ const useUserStore = create((set) => ({
     }
   },
 
-  addToDoList: async (email, title, description, deadlineDate) => {
+  addToDoList: async (userEmail, title, description, deadlineDate) => {
     try {
       const res = await fetch("/api/todolist/create", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, title, description, deadlineDate }),
+        body: JSON.stringify({ userEmail, title, description, deadlineDate }),
       });
-      const { user } = await res.json();
-      console.log(user);
-      set({ currentUser: user });
+      const { id, email, todoList } = await res.json();
+      set({
+        currentUser: {
+          id,
+          email,
+          todoList,
+        },
+      });
       return { success: true, message: "Successfully Created the To-Do" };
+    } catch (e) {
+      return { success: false, message: e.message };
+    }
+  },
+
+  deleteToDoList: async (taskId) => {
+    try {
+      const res = await fetch(`/api/todolist/delete/${taskId}`, {
+        method: "DELETE",
+      });
+      const { id, email, todoList } = await res.json();
+      set({
+        currentUser: {
+          id,
+          email,
+          todoList,
+        },
+      });
+      return { success: true, message: "Successfully Deleted the To-Do" };
     } catch (e) {
       return { success: false, message: e.message };
     }

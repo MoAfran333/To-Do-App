@@ -16,10 +16,10 @@ function Create() {
     e.preventDefault();
     setLoading(true);
     console.log(title, description, deadlineDate);
-    const email = currentUser.email;
+    const userEmail = currentUser.email;
     try {
       const { success, message } = await addToDoList(
-        email,
+        userEmail,
         title,
         description,
         deadlineDate
@@ -30,9 +30,11 @@ function Create() {
         navigate("/");
       } else {
         toast.error(message);
+        setLoading(false);
       }
     } catch (e) {
       toast.error(e.message);
+      setLoading(false);
     }
   };
 
