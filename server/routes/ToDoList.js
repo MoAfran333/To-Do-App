@@ -4,6 +4,6 @@ import { addToDo, deleteToDo } from "../controller/ToDoList.js";
 const router = express.Router();
 
 router.put("/create", addToDo);
-router.delete("/delete/:id", deleteToDo);
+router.delete("/delete/:taskId", deleteToDo);
 
 export default router;

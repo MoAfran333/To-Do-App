@@ -2,16 +2,17 @@ import React from "react";
 import useUserStore from "../store/user";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import deleteIcon from "../assets/delete.svg";
 
-const TODO = ({ email, todoList }) => {
+const TODO = ({ todoList }) => {
   const { deleteToDoList } = useUserStore();
   const navigate = useNavigate();
 
-  const handleDelete = async (e, email, id) => {
+  const handleDelete = async (e, taskId) => {
     e.preventDefault();
-    console.log(id);
+    console.log(taskId);
     try {
-      const { success, message } = await deleteToDoList(email, id);
+      const { success, message } = await deleteToDoList(taskId);
       if (success === true) {
         toast.success(message);
         navigate("/");
@@ -28,7 +29,7 @@ const TODO = ({ email, todoList }) => {
       {todoList?.length !== 0 ? (
         <div className="w-2/3 space-y-6">
           {todoList?.map((todo) => (
-            <div>
+            <div key={todo._id} className="flex gap-6 items-center">
               <div className="border-2 w-full flex flex-col rounded-lg space-y-2 border-white px-8 py-6">
                 <h1 className="text-white font-extrabold">{todo.title}</h1>
                 <div className="flex justify-between">
@@ -38,7 +39,12 @@ const TODO = ({ email, todoList }) => {
                   </h4>
                 </div>
               </div>
-              <button onClick={(e) => handleDelete(e, todo._id)}>Delete</button>
+              <button
+                onClick={(e) => handleDelete(e, todo._id)}
+                className="w-10 h-10 bg-red-500 rounded-lg flex justify-center items-center"
+              >
+                <img src={deleteIcon} alt="Delete Icon" className="w-7 h-7" />
+              </button>
             </div>
           ))}
         </div>

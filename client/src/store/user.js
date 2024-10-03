@@ -55,17 +55,16 @@ const useUserStore = create((set) => ({
 
   fetchData: async () => {
     try {
-      const res = await fetch("/api/auth/check-session");
+      const res = await fetch("/api/auth/check-session", {
+        method: "GET",
+        credentials: "include",
+      });
       const { id, email, todoList } = await res.json();
       console.log(" Data Fetched : ", id, email, todoList);
       set({
-        currentUser: {
-          id,
-          email,
-          todoList,
-        },
+        currentUser: { id, email, todoList },
       });
-      if (data.id !== null && data.email !== null) {
+      if (id !== null && email !== null) {
         return { success: true, message: "Data Fetched" };
       } else {
         return {
@@ -104,9 +103,9 @@ const useUserStore = create((set) => ({
     }
   },
 
-  deleteToDoList: async (id) => {
+  deleteToDoList: async (taskId) => {
     try {
-      const res = await fetch(`/api/todolist/delete/${id}`, {
+      const res = await fetch(`/api/todolist/delete/${taskId}`, {
         method: "DELETE",
       });
       const { id, email, todoList } = await res.json();

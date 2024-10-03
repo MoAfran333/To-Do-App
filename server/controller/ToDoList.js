@@ -31,7 +31,7 @@ export const addToDo = async (req, res) => {
 };
 
 export const deleteToDo = async (req, res) => {
-  const removeId = new mongoose.Types.ObjectId(req.params.id);
+  const removeId = new mongoose.Types.ObjectId(req.params.taskId);
   console.log(removeId);
   try {
     const sessionUser = req.session.user;

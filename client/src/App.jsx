@@ -10,18 +10,20 @@ import Spinner from "./components/Spinner.jsx";
 
 function App() {
   const [loading, setLoading] = useState(false);
-  const { fetchData, logOut } = useUserStore();
+  const { currentUser, fetchData, logOut } = useUserStore();
   const navigate = useNavigate();
 
   const handleFetchData = async () => {
     setLoading(true);
+    console.log("currentUser before fetching : ", currentUser);
     const { success, message } = await fetchData();
+    console.log("currentUser after fetching : ", currentUser);
     if (success === true) {
       setLoading(false);
       navigate("/");
     } else {
-      logOut();
       setLoading(false);
+      logOut();
       navigate("/login");
     }
   };
