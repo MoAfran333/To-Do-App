@@ -12,6 +12,10 @@ function Create() {
   const [deadlineDate, setDeadlineDate] = useState("");
   const navigate = useNavigate();
 
+  const handleNav = () => {
+    navigate("/");
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -106,10 +110,11 @@ function Create() {
 
               <div className="flex gap-2 justify-center">
                 <button
+                  onClick={handleNav}
                   type="button"
                   className="text-black relative left-0 bg-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-1/2 px-5 py-2.5 text-center dark:bg-white dark:hover:bg-blue-700 dark:focus:ring-blue-800 text-md"
                 >
-                  <Link to={"/"}>Cancel</Link>
+                  Cancel
                 </button>
                 <button
                   type="submit"
