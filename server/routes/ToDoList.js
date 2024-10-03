@@ -1,8 +1,9 @@
 import express from "express";
-import { addToDo } from "../controller/ToDoList.js";
+import { addToDo, deleteToDo } from "../controller/ToDoList.js";
 
 const router = express.Router();
 
 router.put("/create", addToDo);
+router.delete("/delete/:id", deleteToDo);
 
 export default router;

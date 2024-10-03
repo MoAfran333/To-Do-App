@@ -41,7 +41,7 @@ const HomePage = () => {
                 </button>
               </div>
             </div>
-            <TODO todoList={currentUser?.todoList} />
+            <TODO email={currentUser.email} todoList={currentUser?.todoList} />
           </div>
         ) : (
           <>
